@@ -6,6 +6,7 @@ public class Library {
     private String name;
     private final Map<String, Record> records = new HashMap<String, Record>();
     private final Map<String, Item> items = new HashMap<String, Item>();
+    private final Map<String, Customer> customers = new HashMap<String, Customer>();
     private final List<LendingEvent> lendingEvents = new ArrayList<>();
 
     public Library(String name) {
@@ -28,7 +29,65 @@ public class Library {
         return items;
     }
 
-    public void customerLoansAnItem() {
+    public Map<String, Customer> getCustomers() {
+        return customers;
+    }
+
+    public List<LendingEvent> getLendingEvents() {
+        return lendingEvents;
+    }
+
+    public void addCustomer(Customer customer) {
+        if (!customers.containsKey(customer.getSsn())) {
+            customers.put(customer.getSsn(), customer);
+        }
+    }
+
+    public void addCustomer(String ssn, String name, String address, String phone, String email, String cardNumber) {
+        Customer c = new Customer(ssn, name, address, phone, email, cardNumber);
+        this.addCustomer(c);
+    }
+
+    public void removeCustomer(String ssn) {
+        if (customers.containsKey(ssn)) {
+            Customer c = (Customer) customers.get(ssn);
+            if (c.getLoans().size() == 0) {
+                customers.remove(ssn);
+            }
+        }
+    }
+
+    public void addBook(String guid, String identifier, String author, String contributor, int publicationYear, String language,
+                        MediaClass mediaClass, String classification, String category, String description, String publisher,
+                        String extent, String isbn) {
+        Book book = new Book(identifier, author, contributor, publicationYear, language, mediaClass, classification,
+                             category, description, publisher, extent, isbn);
+        Record r = (Record) book;
+        Item i = new Item(guid, r);
+        this.addRecord(r);
+        this.addItem(i);
+    }
+
+    public void addRecord(Record record) {
+        if (!records.containsKey(record.getIdentifier())) {
+            records.put(record.getIdentifier(), record);
+        }
+    }
+
+    public void addItem(Item item) {
+        if (!items.containsKey(item.getGuid())) {
+            items.put(item.getGuid(), item);
+        }
+    }
+
+    public void removeItem(String guid) {
+        if (items.containsKey(guid)) {
+            items.remove(guid);
+        }
+    }
+
+    public void customerLoansAnItem(Customer customer, String itemGuid) {
+        // fetch the item. Copy the item?
 
     }
 

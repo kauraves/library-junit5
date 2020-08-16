@@ -4,20 +4,29 @@ import java.time.LocalDate;
 
 public class Loan {
     private int id;
+    private String itemGuid;
     private Item item;
     private String cardNumber;
     private LocalDate loanDate;
     private LocalDate dueDate;
     private int timesRenewed;
 
-
-    public Loan(int id, Item item, String cardNumber, LocalDate loanDate, LocalDate dueDate, int timesRenewed) {
+    public Loan(int id, String itemGuid, Item item, String cardNumber, LocalDate loanDate, LocalDate dueDate, int timesRenewed) {
         this.id = id;
+        this.itemGuid = itemGuid;
         this.item = item;
         this.cardNumber = cardNumber;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.timesRenewed = timesRenewed;
+    }
+
+    public String getItemGuid() {
+        return itemGuid;
+    }
+
+    public void setItemGuid(String itemGuid) {
+        this.itemGuid = itemGuid;
     }
 
     public int getId() {

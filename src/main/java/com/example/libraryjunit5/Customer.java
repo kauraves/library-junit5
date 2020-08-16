@@ -69,10 +69,19 @@ public class Customer {
         this.cardNumber = cardNumber;
     }
 
+    public Map<String, Loan> getLoans() {
+        return loans;
+    }
+
     public void addLoan(Loan loan) {
-        if (!loans.containsKey(loan.getItem().getGuid())) {
-            // friendships.put(person, new ArrayList<String>());
-            loans.put(loan.getItem().getGuid(), loan);
+        if (!loans.containsKey(loan.getItemGuid())) {
+            loans.put(loan.getItemGuid(), loan);
+        }
+    }
+
+    public void removeLoan(String itemGuid) {
+        if (loans.containsKey(itemGuid)) {
+            loans.remove(itemGuid);
         }
     }
 }

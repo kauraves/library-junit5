@@ -1,6 +1,7 @@
 package com.example.libraryunit5;
 
 import com.example.libraryjunit5.Library;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.*;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ public class LibraryTest {
     @BeforeAll
     public static void init() {
         library = new Library("TestLibrary");
+        BasicConfigurator.configure();
     }
 
     @BeforeEach

@@ -11,14 +11,19 @@ public class Loan {
     private LocalDate dueDate;
     private int timesRenewed;
 
-    public Loan(int id, String itemGuid, Item item, String cardNumber, LocalDate loanDate, LocalDate dueDate, int timesRenewed) {
-        this.id = id;
+    public Loan(String itemGuid, Item item, String cardNumber, LocalDate loanDate, LocalDate dueDate, int timesRenewed) {
+        //this.id = id;
         this.itemGuid = itemGuid;
         this.item = item;
         this.cardNumber = cardNumber;
         this.loanDate = loanDate;
         this.dueDate = dueDate;
         this.timesRenewed = timesRenewed;
+    }
+
+    public Loan(String itemGuid) {
+        this.id = 1;
+        this.itemGuid = itemGuid;
     }
 
     public String getItemGuid() {

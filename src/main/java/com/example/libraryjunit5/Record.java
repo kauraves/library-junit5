@@ -5,8 +5,10 @@ package com.example.libraryjunit5;
  * @date 11/08/2020
  * @since 1.0
  */
-public abstract class Record {
+public class Record {
     protected String identifier;
+    private String isbn;
+    private String isrc;
     protected String author;
     protected String contributor;
     protected int publicationYear;
@@ -17,6 +19,7 @@ public abstract class Record {
     protected String description;
     protected String publisher;
     protected String extent;
+    private String notes;
 
     public Record(String identifier, String author, String contributor, int publicationYear, String language,
                   MediaClass mediaClass, String classification, String category, String description,
@@ -33,6 +36,49 @@ public abstract class Record {
         this.description = description;
         this.publisher = publisher;
         this.extent = extent;
+    }
+
+    public Record(String identifier, String isbn, String isrc, String author, String contributor, int publicationYear,
+                  String language, MediaClass mediaClass, String classification, String category, String description,
+                  String publisher, String extent, String notes) {
+        this.identifier = identifier;
+        this.isbn = isbn;
+        this.isrc = isrc;
+        this.author = author;
+        this.contributor = contributor;
+        this.publicationYear = publicationYear;
+        this.language = language;
+        this.mediaClass = mediaClass;
+        this.classification = classification;
+        this.category = category;
+        this.description = description;
+        this.publisher = publisher;
+        this.extent = extent;
+        this.notes = notes;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getIsrc() {
+        return isrc;
+    }
+
+    public void setIsrc(String isrc) {
+        this.isrc = isrc;
     }
 
     public String getIdentifier() {

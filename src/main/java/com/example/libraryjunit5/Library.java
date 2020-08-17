@@ -1,6 +1,8 @@
 package com.example.libraryjunit5;
 
 import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Library {
     private String name;
@@ -58,12 +60,15 @@ public class Library {
     }
 
     public void addBook(String guid, String identifier, String author, String contributor, int publicationYear, String language,
-                        MediaClass mediaClass, String classification, String category, String description, String publisher,
+                        String classification, String category, String description, String publisher,
                         String extent, String isbn) {
-        Book book = new Book(identifier, author, contributor, publicationYear, language, mediaClass, classification,
-                             category, description, publisher, extent, isbn);
-        Record r = (Record) book;
+        MediaClass mediaClass;
+        mediaClass = MediaClass.BOOK;
+
+        Record r = new Record(identifier, isbn, null, author, contributor, publicationYear,
+                                language, mediaClass, classification, category, description, publisher, extent, "");
         Item i = new Item(guid, r);
+
         this.addRecord(r);
         this.addItem(i);
     }
@@ -86,9 +91,33 @@ public class Library {
         }
     }
 
-    public void customerLoansAnItem(Customer customer, String itemGuid) {
-        // fetch the item. Copy the item?
+    public Item findItem(String itemGuid) {
+        if (items.containsKey(itemGuid)) {
+            Item item = (Item) items.get(itemGuid);
+            return item;
+        }
+        return null;
+    }
 
+    public void customerLoansAnItem(Customer customer, String itemGuid) throws CustomException {
+
+        CustomException exception;
+        Item item = this.findItem(itemGuid);
+        if (item == null) {
+            throw new CustomException("The Item does not exist!");
+        }
+        else {
+            if (item.isLent()) {
+                throw new CustomException("The Item is not present!");
+            }
+        }
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDate today = currentTime.toLocalDate();
+        Loan loan = new Loan(itemGuid, item, customer.getCardNumber(), today, null, 0);
+        customer.addLoan(loan);
+        item.setLent(true);
+        item.setLentByCardNumber(customer.getCardNumber());
+        item.setLentBySnn(customer.getSsn());
     }
 
     public void customerReturnsAnItem() {

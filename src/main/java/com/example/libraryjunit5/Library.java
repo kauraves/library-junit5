@@ -45,9 +45,13 @@ public class Library {
         }
     }
 
-    public void addCustomer(String ssn, String name, String address, String phone, String email, String cardNumber) {
-        Customer c = new Customer(ssn, name, address, phone, email, cardNumber);
-        this.addCustomer(c);
+    public void addCustomer(String ssn, String name, String address, String phone, String email, String cardNumber) throws CustomException {
+        try {
+            Customer c = new Customer(ssn, name, address, phone, email, cardNumber);
+            this.addCustomer(c);
+        } catch (CustomException ex) {
+            throw new CustomException(ex.getMessage());
+        }
     }
 
     public void removeCustomer(String ssn) {
@@ -61,12 +65,12 @@ public class Library {
 
     public void addBook(String guid, String identifier, String author, String contributor, int publicationYear, String language,
                         String classification, String category, String description, String publisher,
-                        String extent, String isbn) {
+                        String extent, String isbn, String edition, String notes) {
         MediaClass mediaClass;
         mediaClass = MediaClass.BOOK;
 
         Record r = new Record(identifier, isbn, null, author, contributor, publicationYear,
-                                language, mediaClass, classification, category, description, publisher, extent, "");
+                                language, mediaClass, classification, category, description, publisher, extent, notes);
         Item i = new Item(guid, r);
 
         this.addRecord(r);

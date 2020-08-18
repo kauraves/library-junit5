@@ -20,12 +20,14 @@ public class Record {
     protected String publisher;
     protected String extent;
     private String notes;
+    private String edition;
 
-    public Record(String identifier, String author, String contributor, int publicationYear, String language,
-                  MediaClass mediaClass, String classification, String category, String description,
-                  String publisher, String extent) {
-
+    public Record(String identifier, String isbn, String isrc, String author, String contributor, int publicationYear,
+                  String language, MediaClass mediaClass, String classification, String category, String description,
+                  String publisher, String extent, String notes, String edition) {
         this.identifier = identifier;
+        this.isbn = isbn;
+        this.isrc = isrc;
         this.author = author;
         this.contributor = contributor;
         this.publicationYear = publicationYear;
@@ -36,6 +38,8 @@ public class Record {
         this.description = description;
         this.publisher = publisher;
         this.extent = extent;
+        this.notes = notes;
+        this.edition = edition;
     }
 
     public Record(String identifier, String isbn, String isrc, String author, String contributor, int publicationYear,
@@ -167,5 +171,13 @@ public class Record {
 
     public void setExtent(String extent) {
         this.extent = extent;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
     }
 }

@@ -2,7 +2,7 @@ package com.example.libraryjunit5;
 
 import java.util.*;
 
-public class Customer {
+public class Customer  {
     private String ssn;
     private String name;
     private String address;
@@ -12,20 +12,28 @@ public class Customer {
     //private List<Loan> loans;
     private Map<String, Loan> loans = new HashMap<String, Loan>();
 
-    public Customer(String ssn, String name, String address, String phone, String email, String cardNumber) {
-        this.ssn = ssn;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.cardNumber = cardNumber;
+    public Customer(String ssn, String name, String address, String phone, String email, String cardNumber) throws CustomException {
+        try {
+            //this.ssn = ssn;
+            this.setSsn(ssn);
+            this.name = name;
+            this.address = address;
+            this.phone = phone;
+            this.email = email;
+            this.cardNumber = cardNumber;
+        } catch (CustomException ex){
+            throw new CustomException(ex.getMessage());
+        }
     }
 
     public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(String ssn) {
+    public void setSsn(String ssn) throws CustomException {
+        if (ssn.length() < 12) {
+            throw new CustomException("The ssn is not valid!");
+        }
         this.ssn = ssn;
     }
 
